@@ -58,5 +58,11 @@ mkdir /etc/letsencrypt/live/harbor/ 생성
 admin/Harbor12345
 
 
+[root@localhost harbor]# cat /etc/docker/daemon.json
+{
+    "insecure-registries": ["192.168.50.160:8888"]
+}
+
+
 docker login https://192.168.50.160:8888  -u admin -p Harbor12345
 ```
