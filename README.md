@@ -56,4 +56,7 @@ mkdir /etc/letsencrypt/live/harbor/ 생성
 
 192.168.50.160:8888 접속
 admin/Harbor12345
+
+
+docker login https://192.168.50.160:8888  -u admin -p Harbor12345
 ```

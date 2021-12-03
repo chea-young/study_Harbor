@@ -67,4 +67,5 @@ Getting CA Private Key
 
 
 
-링크: https://wookiist.dev/126
+링크: +https://wookiist.dev/126
++ Resseting
