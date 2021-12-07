@@ -63,6 +63,7 @@ admin/Harbor12345
     "insecure-registries": ["192.168.50.160:8888"]
 }
 
+systemctl restart docker.service
 
 docker login https://192.168.50.160:8888  -u admin -p Harbor12345
 ```
