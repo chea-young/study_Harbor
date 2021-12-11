@@ -1,12 +1,9 @@
 ## 재설정
-
-```
-
 update-ca-trust extract
 systemctl restart docker
 - docker-compose down -v 
 - ./prepare --with-clair --with-chartmuseum # 변경사항 적용
-docker-compose up -d - 
+docker-compose up -d
 
 https.certificate: {server.cert로 수정 (예시, /etc/docker/certs.d/server/server.cert)
 https.private_key: {server.key로 수정 (예시, /etc/docker/certs.d/server/server.key)
@@ -26,3 +23,13 @@ update-ca-trust extract
 
 /etc/docker/certs.d/192.168.50.160/server.cert
 /etc/docker/certs.d/192.168.50.160/server.key
+
+openssl x509 -req -sha512 -days 3650 \
+-extfile v3ext.cnf \
+-CA ca.crt -CAkey ca.key -CAcreateserial \
+-in server.csr \
+-out server.crt
+
+openssl req -x509 -new -nodes -sha512 -days 3650 \
+-key ca.key \
+-out ca.crt
