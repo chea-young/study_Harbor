@@ -1,9 +1,8 @@
-[root@control-plane certs]# openssl genrsa -out ca.key 4096
-Generating RSA private key, 4096 bit long modulus (2 primes)
-................................................................................................................................................................................................................................................++++
-.......................................................................................++++
-e is 65537 (0x010001)
-[root@control-plane certs]# openssl req -x509 -new -nodes -sha512 -days 365 \
+## https 설정하기
+```
+openssl genrsa -out ca.key 4096
+
+openssl req -x509 -new -nodes -sha512 -days 365 \
 > -key ca.key \
 > -out ca.crt
 You are about to be asked to enter information that will be incorporated
@@ -20,12 +19,14 @@ Organization Name (eg, company) [Default Company Ltd]:
 Organizational Unit Name (eg, section) []:
 Common Name (eg, your name or your server's hostname) []:
 Email Address []:
-[root@control-plane certs]# openssl genrsa -out server.key 4096
+
+openssl genrsa -out server.key 4096
 Generating RSA private key, 4096 bit long modulus (2 primes)
 .......++++
 ......................++++
 e is 65537 (0x010001)
-[root@control-plane certs]# openssl req -sha512 -new \
+
+openssl req -sha512 -new \
 > -key server.key \
 > -out server.csr
 You are about to be asked to enter information that will be incorporated
@@ -47,25 +48,24 @@ Please enter the following 'extra' attributes
 to be sent with your certificate request
 A challenge password []:
 An optional company name []:
-[root@control-plane certs]#  vi v3ext.cnf
-[root@control-plane certs]# ls
+
+ls # 생성 확인
 ca.crt  ca.key  server.csr  server.key
-[root@control-plane certs]# ls
-ca.crt  ca.key  server.csr  server.key
-[root@control-plane certs]#  vi v3ext.cnf
-[root@control-plane certs]#  openssl x509 -req -sha512 -days 365 \
+
+openssl x509 -req -sha512 -days 365 \
 > -extfile v3ext.cnf \
 > -CA ca.crt -CAkey ca.key -CAcreateserial \
 > -in server.csr \
 > -out server.crt
-Signature ok
-subject=C = kr, L = Default City, O = Default Company Ltd
-Getting CA Private Key
-[root@control-plane certs]# openssl x509 -inform PEM -in server.crt -out server.cert
-[root@control-plane certs]#
 
+openssl x509 -inform PEM -in server.crt -out server.cert
+```
 
+- 이후 server.crt와 server.key가 생성된 위치에 harbor 설정 키를 해당 위치로 변경해서 올리기
+```
+https.certificate: {server.cert로 수정 (예시, /etc/docker/certs.d/server/server.cert)
+https.private_key: {server.key로 수정 (예시, /etc/docker/certs.d/server/server.key)
+```
 
-
-링크: +https://wookiist.dev/126
-+ Resseting
+#### 참고사이트
++ https://wookiist.dev/126
