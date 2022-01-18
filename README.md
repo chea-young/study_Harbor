@@ -1,17 +1,16 @@
-# Harbor-
+# study_harbor
 리눅스에 Private Docker Registry Harbor를 설치하고 실습 내용을 정리하는 Repository
 
-## 왜 도입?
+## 도입하게 된 이유
 - Sonatype nexus를 사용했으나 maven, npm 등 사설 레지스트리로 사용하는데 충분하지만 Docker로 사용하기 위해서는 https 사용할 수 없어 추가적인 설정이 필요했기 때문에 계속해서 사용하기 에는 적합하지 않다고 판단
 - Docker Hub는 무료로 사용하기 위해서는 public으로 공개해야 하는 점, private로 사용할 경우 추가적인 비용을 지불해야 한다는 점에서 연구실에서 사용하기에는 부적합
 
-
-### Harbor
+### Harbor란?
 - registry가 아닌 project라는 이름으로 정보 저장소 제공
 - 포털로 올리고 내리는 것이 가능
 ```
+# 로그인
 docker login https://192.168.50.160:8888
-로그인해서 받는 것이 같음.
 
 # 이미지 업로드
 docker tag SOURCE_IMAGE[:TAG] [MyDomain.com]:[PORT]/[PROJECT]/IMAGE[:TAG]
